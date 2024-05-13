@@ -14,11 +14,11 @@ class GtcFunctions:
         self.gtcDir = gtcDir
         self.outDir = outDir
 
-        logger.debug('New object initialized')
+        self.logger.debug('New object initialized')
 
     
     def manipulateUpdate(self, snpUpdateFile, overrides):
-        import manipulateGTC
+        import gthack.modules.manipulateGTC as manipulateGTC
         
         logger = logging.getLogger('manipulateGTC')
         logger.debug('Running module: manipulateGTC')
@@ -30,7 +30,7 @@ class GtcFunctions:
 
    
     def createSampleSheet(self, sampleSheetUpdates, pseudoInstID, pseudoMrn, fileOutName, config):
-        import sampleSheet
+        import gthack.modules.sampleSheet as sampleSheet
 
         logger = logging.getLogger('createSampleSheet')
         logger.debug('Running module: createSampleSheet')
@@ -45,7 +45,7 @@ class GtcFunctions:
 
 
     def extractSampleInfo(self, fileOutName, prefix, flag):
-        import getSampleInfo
+        import gthack.modules.getSampleInfo as getSampleInfo
         
         logger = logging.getLogger('extractSampleInfo')
         logger.debug('Running module: extractSampleInfo')
@@ -59,7 +59,7 @@ class GtcFunctions:
 
  
     def getIntensities(self, fileOutName, prefix, flag):
-        import getIntensities
+        import gthack.modules.getIntensities as getIntensities
 
         logger = logging.getLogger('getIntensities')
         logger.debug('Running module: getIntensities')
@@ -129,8 +129,8 @@ class GtcFunctions:
 
     def query():
         pass
-if __name__ == '__main__':
 
+def main():
     parser = argparse.ArgumentParser(description='Functions and methods for gtc files')
     parser.add_argument('method', choices=['manipulateGTCs', 'getIntensities', 'sampleInformation', 'createSampleSheet', 'allCombos'])
     parser.add_argument('--bpm', required=True, type=str, help='Full path to bead pool manifest file (.bpm); must be same one used to generate gtc')
@@ -222,3 +222,6 @@ if __name__ == '__main__':
         logger.critical('method {} does not exist!'.format(args.method))
         print('method {} does not exist!'.format(args.method))
         sys.exit()
+
+if __name__ == '__main__':
+    main()
