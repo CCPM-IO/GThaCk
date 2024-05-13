@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "gthack"
+version = "0.1.0"
+description = "Code to hack through, manipulate, and extract information from GTC files"
+authors = ["Tonya Brunetti <tonya.brunetti@cuanschutz.edu>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.scripts]
+gthack = 'gthack.gtcFuncs:main'
+
+[tool.poetry.dependencies]
+python = "^3.10"
+cget = "^0.2.0"
+Cython = "^3.0.10"
+matplotlib = "^3.8.4"
+numpy = "^1.26.4"
+pandas = "^2.2.2"
+pysam = "^0.22.1"
+# PyVCF = "^0.6.8"
+pyvcf3 = "^1.0.3"
+seaborn = "^0.13.2"
+illuminabeadarrayfiles = {git = "https://github.com/Illumina/BeadArrayFiles.git"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+black = "^24.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
