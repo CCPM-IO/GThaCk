@@ -75,7 +75,7 @@ Include: apt
 	make
 	make install
 	cd /opt/
-	git clone https://github.com/tbrunetti/GThaCk.git
+	git clone https://github.com/CCPM-IO/GThaCk.git
 	cd /opt/GThaCk/modules
 	mv IlluminaBeadArrayFiles.tar.gz /usr/local/lib/python3.6/dist-packages/
 	cd /usr/local/lib/python3.6/dist-packages/
