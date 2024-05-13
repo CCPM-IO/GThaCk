@@ -20,7 +20,7 @@ pysam = "^0.22.1"
 # PyVCF = "^0.6.8"
 pyvcf3 = "^1.0.3"
 seaborn = "^0.13.2"
-illuminabeadarrayfiles = {git = "https://github.com/Illumina/BeadArrayFiles.git"}
+illuminabeadarrayfiles = {git = "https://github.com/Illumina/BeadArrayFiles.git", branch = "develop"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
