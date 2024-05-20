@@ -12,8 +12,8 @@ input: gtcFunction object
 output: writes updated gtcs to output directory specified at runtime
 '''
 def manipulate_gtc(self):
-    import extractInformation
-    import write_gtc
+    import gthack.modules.extractInformation as extractInformation
+    import gthack.modules.write_gtc as write_gtc
     logger = logging.getLogger('manipulate_gtc')
     logger.debug('In method manipulate_gtc()')
     
@@ -142,8 +142,8 @@ def manipulate_gtc(self):
     output: None - Raises an AssertionError if a gtc fail validation and records in the log file and standard out
     '''
     def validateUpdate(originalGTC, outputName, outDir):
-        import extractInformation
-        import write_gtc
+        import gthack.modules.extractInformation as extractInformation
+        import gthack.modules.write_gtc as write_gtc
 
 
         logger = logging.getLogger('validateUpdate')

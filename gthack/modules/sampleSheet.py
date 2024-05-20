@@ -45,7 +45,7 @@ input: gtcFunction object
 output: does not return anything, however, a temporary file [data] csv is generated on the local system
 '''
 def baseData(self):
-	import extractInformation
+	import gthack.modules.extractInformation as extractInformation
 	import random
 
 	bpm=self.bpm

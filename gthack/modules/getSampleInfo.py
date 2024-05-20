@@ -12,7 +12,7 @@ input:
 output:
 '''
 def reportSampleInfo(self):
-    import extractInformation
+    import gthack.modules.extractInformation as extractInformation
     import logging
 
     logger = logging.getLogger('reportSampleInfo')
@@ -128,7 +128,7 @@ def reportSampleInfo(self):
       
 
 def reportSampleInfoRecursive(self):
-    import extractInformation
+    import gthack.modules.extractInformation as extractInformation
     from pathlib import Path
     from os import fspath
     import logging

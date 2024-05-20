@@ -10,7 +10,7 @@ input:
 output:
 '''
 def getIntensities(self):
-    import extractInformation
+    import gthack.modules.extractInformation as extractInformation
     import pandas
     import seaborn as sns
     import matplotlib.pyplot as plt 
@@ -129,7 +129,7 @@ def getIntensities(self):
 
 
 def getIntensitiesRecursive(self):
-    import extractInformation
+    import gthack.modules.extractInformation as extractInformation
     import pandas
     import seaborn as sns
     import matplotlib.pyplot as plt 
