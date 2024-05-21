@@ -82,7 +82,7 @@ def manipulate_gtc(self):
         assert manifest_name == manifest_name_csv
 
 
-        manifestSnpsStr = manifest.snps[loc].decode()
+        manifestSnpsStr = manifest.snps[loc]
         manifestSnps = [manifestSnpsStr[1], manifestSnpsStr[-2]]
         if manifest.ref_strands[loc] == RefStrand.Minus:
             manifestSnps = [COMPLEMENT_MAP[snp] for snp in manifestSnps]
@@ -194,7 +194,7 @@ def manipulate_gtc(self):
             for snp in snpsOverrides:
                 snp = snp.split('\t')
                 try:
-                    logger.info('snp {} is being changed from {} to {}'.format(snp[0], manifest.snps[manifest.names.index(snp[0])].decode(), snp[1]))
+                    logger.info('snp {} is being changed from {} to {}'.format(snp[0], manifest.snps[manifest.names.index(snp[0])], snp[1]))
                     manifest.snps[manifest.names.index(snp[0])] = snp[1].strip().encode()
                     logger.info('Success! Alleles of snp {} has been updated!'.format(snp[0]))
                 except ValueError:

@@ -65,20 +65,20 @@ def baseData(self):
 		logger.debug('In module sampleSheet.py in baseData() in submodule updateData')
 		if sampleSheetUpdates == None:
 			manifestGender = 'Unknown'
-			if data[1007].decode() == 'F':
+			if data[1007] == 'F':
 				manifestSex = 'Female'
-			elif data[1007].decode() == 'M':
+			elif data[1007] == 'M':
 				manifestSex = 'Male'
-			elif data[1007].decode() == 'U':
+			elif data[1007] == 'U':
 				manifestSex = "Unknown"
 			colValues = [
-				data[10].decode(),
-				data[1016].decode(),
+				data[10],
+				data[1016],
 				gtcFile.split('_')[1][:-4],
-				data[11].decode(),
-				data[12].decode(),
+				data[11],
+				data[12],
 				manifestSex,
-				data[10].decode(),
+				data[10],
 				str(default['instID']),
 				'',
 				str(default['mrn']),
@@ -87,19 +87,19 @@ def baseData(self):
 				exclude,
 				'validationPlate'
 				]
-			gtcMatchFile.write('\t'.join([gtcFile, data[10].decode(), data[12].decode(), manifestSex,
+			gtcMatchFile.write('\t'.join([gtcFile, data[10], data[12], manifestSex,
 				str(default['instID']), str(default['mrn']), 'UNKNOWN, UNKNOWN', '00-00-0000']) + '\n')
 
 		else:
 			logger.debug('Updating {} in manifest sample sheet'.format(sampleSheetUpdates['patientName']))
 			colValues = [
-				data[10].decode(),
-				data[1016].decode(),
+				data[10],
+				data[1016],
 				gtcFile.split('_')[1][:-4],
-				data[11].decode(),
-				data[12].decode(),
+				data[11],
+				data[12],
 				sampleSheetUpdates['sex'],
-				data[10].decode(),
+				data[10],
 				sampleSheetUpdates['instrumentID'],
 				'',
 				sampleSheetUpdates['mrn'],
@@ -109,7 +109,7 @@ def baseData(self):
 				'validationPlate'
 				]
 
-			gtcMatchFile.write('\t'.join([gtcFile, data[10].decode(), data[12].decode(), sampleSheetUpdates['sex'],
+			gtcMatchFile.write('\t'.join([gtcFile, data[10], data[12], sampleSheetUpdates['sex'],
 				sampleSheetUpdates['instrumentID'], sampleSheetUpdates['mrn'], sampleSheetUpdates['patientName'],
 				sampleSheetUpdates['DOB']]) + '\n')
 
@@ -153,7 +153,7 @@ def baseData(self):
 		if gtcFile.endswith('.gtc'):
 			colValues = []
 			data = extractInformation.getGtcInfo(os.path.join(gtcDir, gtcFile))
-			if data[12].decode() in configParams['control_wells']:
+			if data[12] in configParams['control_wells']:
 				colValues = updateData(gtcFile=gtcFile, data=data, sampleSheetUpdates=None, default={'instID':randInstID, 'mrn':randMRN}, exclude=0, gtcMatchFile=gtcMatchData)
 			elif gtcFile in configParams['exclude_gtcs']:
 				colValues = updateData(gtcFile=gtcFile, data=data, sampleSheetUpdates=None, default={'instID':randInstID, 'mrn':randMRN}, exclude=1, gtcMatchFile=gtcMatchData)			
