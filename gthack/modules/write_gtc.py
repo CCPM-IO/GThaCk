@@ -30,7 +30,10 @@ def handle_percentiles(value):
 
 def handle_string(value):
     assert len(value) <= 127
-    return struct.pack("B", len(value)) + value
+    return (
+        struct.pack("B", len(value)) + 
+        value.encode() if isinstance(value, str) else value
+    )
 
 def handle_basecalls(value):
     return value
