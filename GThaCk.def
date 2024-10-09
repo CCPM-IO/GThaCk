@@ -39,27 +39,31 @@ Include: apt
 	apt-get -y install 2to3
 	apt-get -y install python3-lib2to3
 	apt-get install python3-toolz
-	pip3 install cget
-	pip3 install numpy
-	pip3 install pandas
-	pip3 install matplotlib
-	pip3 install seaborn
-	pip3 install pysam
-	pip3 install pyvcf
-	pip3 install Cython
+    python3 -m pip install --upgrade pip
+	python3 -m pip install cget
+	python3 -m pip install numpy
+	python3 -m pip install pandas
+	python3 -m pip install matplotlib
+	python3 -m pip install seaborn
+	python3 -m pip install pysam
+	python3 -m pip install pyvcf
+	python3 -m pip install Cython
 	which python3
 	ln -s /usr/bin/python3 /usr/bin/python
 	export LC_ALL=C.UTF-8
     	export LANG=C.UTF-8
 	apt-get -y update
+
 	cd /opt/
-        git clone https://github.com/samtools/htslib.git
-        cd /opt/htslib/
-        autoheader
-        autoconf -Wno-syntax
-        ./configure
-        make
-        make install
+    git clone https://github.com/samtools/htslib.git
+    cd /opt/htslib/
+    git submodule update --init --recursive
+    autoheader
+    autoconf -Wno-syntax
+    ./configure
+    make
+    make install
+
 	cd /opt/
 	git clone https://github.com/samtools/samtools.git
 	cd /opt/samtools/
@@ -68,14 +72,17 @@ Include: apt
 	./configure 
 	make
 	make install
+
 	cd /opt/
-	git clone git://github.com/samtools/bcftools.git 
+	git clone https://github.com/samtools/bcftools.git 
 	cd bcftools
 	autoheader && autoconf && ./configure --enable-libgsl
 	make
 	make install
 	cd /opt/
-	git clone https://github.com/tbrunetti/GThaCk.git
+	git clone https://github.com/sgopalan98/GThaCk.git
+    cd /opt/GThaCk/
+    git checkout fixing-bug-manipulate-gtc
 	cd /opt/GThaCk/modules
 	mv IlluminaBeadArrayFiles.tar.gz /usr/local/lib/python3.6/dist-packages/
 	cd /usr/local/lib/python3.6/dist-packages/
@@ -92,7 +99,7 @@ Include: apt
 	export NETCDF_INCLUDE=/usr/include
 	export PATH="${PATH}:/mnt:/opt/GTCtoVCF:/opt/:/opt/GThaCk/:/usr/bin:/bin:/usr/local/sbin/:/usr/local/bin"
         export PYTHONPATH="${PYTHONPATH}:/mnt/:/opt/"
-        export PYTHONPATH="${PYTHONPATH}:/usr/local/bin/:/usr/local/lib/python3.6/dist-packages/:/usr/local/lib/python3.6/:/usr/bin/"
+        export PYTHONPATH="${PYTHONPATH}:/usr/local/bin/:/usr/local/lib/python3.6/dist-packages/:/usr/local/lib/python3.6/:/usr/bin/:/opt/GThaCk/:/opt/GThaCk/modules"
 
 %runscript
 	exec "$@"	

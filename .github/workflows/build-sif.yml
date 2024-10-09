@@ -1,0 +1,31 @@
+name: Build SIF from Def File
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Setup Singularity
+        uses: eWaterCycle/setup-singularity@v7
+        with:
+          singularity-version: '3.8.3'
+          
+      - name: Install debootstrap
+        run: sudo apt-get update && sudo apt-get install -y debootstrap
+        
+      - name: Build SIF from Definition File
+        run: |
+          singularity build --fakeroot GThaCk.sif GThaCk.def
+
+      - name: Upload SIF as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: GThaCk.sif
+          path: GThaCk.sif

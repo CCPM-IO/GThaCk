@@ -2,6 +2,14 @@
 (**GT**ha**C**k)
 Code to hack through, manipulate, and extract information from GTC files
 
+This repo is a fork of tbrunetti's [GThaCK](https://github.com/tbrunetti/GThaCk) with a few significant changes,
+including:
+- the tool is now bundled as a Python package
+- changes were made to support recent developments in
+https://github.com/Illumina/BeadArrayFiles, which now allows us to include that
+package as a dependency rather than bundling it with this package
+
+
 ## Table of Contents
 ---------------------
 1.  [Introduction and Overview](#introduction-and-overview)

@@ -7,17 +7,18 @@ import logging
 
 class GtcFunctions:
 
-    def __init__(self, bpm, gtcDir, outDir):
+    def __init__(self, bpm, bpm_csv, gtcDir, outDir):
         self.logger = logging.getLogger("classObject")
         self.bpm = bpm
+        self.bpm_csv = bpm_csv
         self.gtcDir = gtcDir
         self.outDir = outDir
 
-        logger.debug('New object initialized')
+        self.logger.debug('New object initialized')
 
     
     def manipulateUpdate(self, snpUpdateFile, overrides):
-        import manipulateGTC
+        import gthack.modules.manipulateGTC as manipulateGTC
         
         logger = logging.getLogger('manipulateGTC')
         logger.debug('Running module: manipulateGTC')
@@ -29,7 +30,7 @@ class GtcFunctions:
 
    
     def createSampleSheet(self, sampleSheetUpdates, pseudoInstID, pseudoMrn, fileOutName, config):
-        import sampleSheet
+        import gthack.modules.sampleSheet as sampleSheet
 
         logger = logging.getLogger('createSampleSheet')
         logger.debug('Running module: createSampleSheet')
@@ -44,7 +45,7 @@ class GtcFunctions:
 
 
     def extractSampleInfo(self, fileOutName, prefix, flag):
-        import getSampleInfo
+        import gthack.modules.getSampleInfo as getSampleInfo
         
         logger = logging.getLogger('extractSampleInfo')
         logger.debug('Running module: extractSampleInfo')
@@ -58,7 +59,7 @@ class GtcFunctions:
 
  
     def getIntensities(self, fileOutName, prefix, flag):
-        import getIntensities
+        import gthack.modules.getIntensities as getIntensities
 
         logger = logging.getLogger('getIntensities')
         logger.debug('Running module: getIntensities')
@@ -128,11 +129,12 @@ class GtcFunctions:
 
     def query():
         pass
-if __name__ == '__main__':
 
+def main():
     parser = argparse.ArgumentParser(description='Functions and methods for gtc files')
     parser.add_argument('method', choices=['manipulateGTCs', 'getIntensities', 'sampleInformation', 'createSampleSheet', 'allCombos'])
     parser.add_argument('--bpm', required=True, type=str, help='Full path to bead pool manifest file (.bpm); must be same one used to generate gtc')
+    parser.add_argument('--bpm-csv',required=True, type=str, help='Full path to bead pool manifest file in CSV form (.csv); must be same one used to generate gtc')
     parser.add_argument('--gtcDir', type=str, default=os.getcwd(), help='Full path to location of directory/folder containing gtc files to process (files must end in .gtc) -- will not recursively go into subdirectories')
     parser.add_argument('--outDir', default=os.getcwd(), type=str,help='Full path to directory or folder to output results.  If it path does not exist, program will attempt to create it')
     parser.add_argument('--updates', default=None, type=str, help='Full path to file containing snps and/or metadata to update')
@@ -184,7 +186,7 @@ if __name__ == '__main__':
 
     if args.method == 'manipulateGTCs':
         logger.info('method manipulateGTCs selected \n creating new object of class GtcFunctions')
-        analysisObj = GtcFunctions(args.bpm, args.gtcDir, args.outDir)
+        analysisObj = GtcFunctions(args.bpm, args.bpm_csv, args.gtcDir, args.outDir)
         analysisObj.manipulateUpdate(args.updates, args.overrides)
     
     elif args.method == 'createSampleSheet':
@@ -220,3 +222,6 @@ if __name__ == '__main__':
         logger.critical('method {} does not exist!'.format(args.method))
         print('method {} does not exist!'.format(args.method))
         sys.exit()
+
+if __name__ == '__main__':
+    main()

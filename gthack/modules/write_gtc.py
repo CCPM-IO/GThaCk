@@ -30,7 +30,10 @@ def handle_percentiles(value):
 
 def handle_string(value):
     assert len(value) <= 127
-    return struct.pack("B", len(value)) + value
+    return (
+        struct.pack("B", len(value)) + 
+        value.encode() if isinstance(value, str) else value
+    )
 
 def handle_basecalls(value):
     return value
@@ -39,8 +42,9 @@ def handle_scanner_data(value):
     return handle_string(value.name) + handle_int(value.pmt_green) + handle_int(value.pmt_red) + handle_string(value.version) + handle_string(value.user)
 
 def handle_normalization_transform(value):
-    return struct.pack("<iffffff", value.version, value.offset_x, value.offset_y, value.scale_x, value.scale_y, value.shear, value.theta)
-
+#    return struct.pack("<iffffff", value.version, value.offset_x, value.offset_y, value.scale_x, value.scale_y, value.shear, value.theta)
+    return struct.pack("<iffffffiiiiii", value.version, value.offset_x, value.offset_y, value.scale_x, value.scale_y, value.shear,
+                   value.theta, 0,0,0,0,0,0)
 
 toc2handler = {}
 toc2handler[GenotypeCalls._GenotypeCalls__ID_NUM_SNPS] = handle_int

@@ -10,7 +10,7 @@ input:
 output:
 '''
 def getIntensities(self):
-    import extractInformation
+    import gthack.modules.extractInformation as extractInformation
     import pandas
     import seaborn as sns
     import matplotlib.pyplot as plt 
@@ -34,9 +34,9 @@ def getIntensities(self):
     ]
 
     #detect which probes are available based on bpm input
-    controls = manifest.control_config.decode().split('\n')
+    controls = manifest.control_config.split('\n')
     # checks if split leaves an empty string, if yes, pop off
-    if len(manifest.control_config.decode().split('\n')[-1]) == 0:
+    if len(manifest.control_config.split('\n')[-1]) == 0:
         controls.pop(len(controls)-1)
 
     # list of control probes in order
@@ -50,14 +50,14 @@ def getIntensities(self):
         data = extractInformation.getGtcInfo(gtc=os.path.join(gtcDir, gtc))
         try:
             assert data[101] == manifest.manifest_name
-            intensities_per_sample['{}-{}-{}'.format(data[11].decode(), data[12].decode(), data[10].decode())] = {}
-            intensities_per_sample['{}-{}-{}'.format(data[11].decode(), data[12].decode(), data[10].decode())]['sex'] = data[1007].decode()
+            intensities_per_sample['{}-{}-{}'.format(data[11], data[12], data[10])] = {}
+            intensities_per_sample['{}-{}-{}'.format(data[11], data[12], data[10])]['sex'] = data[1007]
 
             intensityIndex = 0
             for i in range(0, len(data[500])):
                 if i%4 == 0:
-                    intensities_per_sample['{}-{}-{}'.format(data[11].decode(), data[12].decode(), data[10].decode())][intensity_probes[intensityIndex] + '_1X'] = data[500][i]
-                    intensities_per_sample['{}-{}-{}'.format(data[11].decode(), data[12].decode(), data[10].decode())][intensity_probes[intensityIndex] + '_1Y'] = data[501][i]
+                    intensities_per_sample['{}-{}-{}'.format(data[11], data[12], data[10])][intensity_probes[intensityIndex] + '_1X'] = data[500][i]
+                    intensities_per_sample['{}-{}-{}'.format(data[11], data[12], data[10])][intensity_probes[intensityIndex] + '_1Y'] = data[501][i]
                     intensityIndex += 1
                 else:
                     continue
@@ -129,7 +129,7 @@ def getIntensities(self):
 
 
 def getIntensitiesRecursive(self):
-    import extractInformation
+    import gthack.modules.extractInformation as extractInformation
     import pandas
     import seaborn as sns
     import matplotlib.pyplot as plt 
@@ -152,9 +152,9 @@ def getIntensitiesRecursive(self):
     input_gtc_list = [fspath(gtc) for gtc in Path(gtcDir).rglob('*.gtc')]
 
     #detect which probes are available based on bpm input
-    controls = manifest.control_config.decode().split('\n')
+    controls = manifest.control_config.split('\n')
     # checks if split leaves an empty string, if yes, pop off
-    if len(manifest.control_config.decode().split('\n')[-1]) == 0:
+    if len(manifest.control_config.split('\n')[-1]) == 0:
         controls.pop(len(controls)-1)
 
     # list of control probes in order
@@ -168,14 +168,14 @@ def getIntensitiesRecursive(self):
         data = extractInformation.getGtcInfo(gtc)
         try:
             assert data[101] == manifest.manifest_name
-            intensities_per_sample['{}-{}-{}'.format(data[11].decode(), data[12].decode(), data[10].decode())] = {}
-            intensities_per_sample['{}-{}-{}'.format(data[11].decode(), data[12].decode(), data[10].decode())]['sex'] = data[1007].decode()
+            intensities_per_sample['{}-{}-{}'.format(data[11], data[12], data[10])] = {}
+            intensities_per_sample['{}-{}-{}'.format(data[11], data[12], data[10])]['sex'] = data[1007]
 
             intensityIndex = 0
             for i in range(0, len(data[500])):
                 if i%4 == 0:
-                    intensities_per_sample['{}-{}-{}'.format(data[11].decode(), data[12].decode(), data[10].decode())][intensity_probes[intensityIndex] + '_1X'] = data[500][i]
-                    intensities_per_sample['{}-{}-{}'.format(data[11].decode(), data[12].decode(), data[10].decode())][intensity_probes[intensityIndex] + '_1Y'] = data[501][i]
+                    intensities_per_sample['{}-{}-{}'.format(data[11], data[12], data[10])][intensity_probes[intensityIndex] + '_1X'] = data[500][i]
+                    intensities_per_sample['{}-{}-{}'.format(data[11], data[12], data[10])][intensity_probes[intensityIndex] + '_1Y'] = data[501][i]
                     intensityIndex += 1
                 else:
                     continue
