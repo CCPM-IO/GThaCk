@@ -215,7 +215,7 @@ def main():
         logger.info('method sampleInformation selected \n creating new object of class GtcFunctions')
         if args.fileOutName == None:
             args.fileOutName = 'allSampleInfo.txt'
-        analysisObj = GtcFunctions(args.bpm, args.gtcDir, args.outDir)
+        analysisObj = GtcFunctions(args.bpm, args.bpm_csv, args.gtcDir, args.outDir)
         analysisObj.extractSampleInfo(args.fileOutName, args.prefix, args.recursive)
     
     else:
